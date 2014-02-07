@@ -1,0 +1,24 @@
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+	<link href="style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<div id="box">
+		<div id="title">
+			EmbeddedMap
+		</div>
+		<p>List of <strong>{{entries}}</strong> companies working on the embedded systems, electronics and industrial market.</p>
+		<p><strong><a onclick="document.getElementById('popup').style.visibility = 'visible';">Show the full list</a></strong><br /> <br />
+		<a target="_blank" href="https://github.com/yoannsculo/embeddedmap">Fork me</a> - <a target="_blank" href="http://www.yoannsculo.fr/a-propos">Contact</a></p>
+	</div>
+	<div id="popup">
+		<a style="float:right;" onclick="document.getElementById('popup').style.visibility = 'hidden';"">Close</a>
+		<ul>{{list}}</ul>
+	</div>
+	<div id="map" class="map" style="height: 100%;"></div>
+	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+	<script src="js/map.js"></script>
+</body>
+</html>
