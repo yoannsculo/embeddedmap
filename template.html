@@ -1,7 +1,9 @@
 <html>
 <head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="leaflet/leaflet.css" />
 	<link href="style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
@@ -9,16 +11,24 @@
 		<div id="title">
 			EmbeddedMap
 		</div>
-		<p>List of <strong>{{entries}}</strong> companies working on the embedded systems, electronics and industrial market.</p>
-		<p><strong><a onclick="document.getElementById('popup').style.visibility = 'visible';">Show the full list</a></strong><br /> <br />
-		<a target="_blank" href="https://github.com/yoannsculo/embeddedmap">Fork me</a> - <a target="_blank" href="http://www.yoannsculo.fr/a-propos">Contact</a></p>
+
+		<p><span style="font-size:22px;">{{entries}}</span> companies working on the embedded systems, electronics and industrial market.</p>
+		<p>
+			<strong><a onclick="document.getElementById('popup').style.visibility = 'visible';" style="cursor:pointer;">Show the full list</a></strong>
+			<br /> <br />
+			<a target="_blank" href="https://github.com/yoannsculo/embeddedmap">Fork me</a> - <a target="_blank" href="http://www.yoannsculo.fr/a-propos">Contact</a>
+		</p>
 	</div>
+
+	<div id="map" class="map" style="height: 100%; border:0;"></div>
+	<script src="leaflet/leaflet.js"></script>
+
+	<script src="js/map.js"></script>
+
 	<div id="popup">
-		<a style="float:right;" onclick="document.getElementById('popup').style.visibility = 'hidden';"">Close</a>
+		<a style="float:right;cursor:pointer;" onclick="document.getElementById('popup').style.visibility = 'hidden';">Close</a>
 		<ul>{{list}}</ul>
 	</div>
-	<div id="map" class="map" style="height: 100%;"></div>
-	<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-	<script src="js/map.js"></script>
+
 </body>
 </html>
