@@ -14,9 +14,9 @@
 
 		<p><span style="font-size:22px;">{{entries}}</span> companies working on the embedded systems, electronics and industrial market.</p>
 		<p>
-			<strong><a onclick="document.getElementById('popup').style.visibility = 'visible';" style="cursor:pointer;">Show the full list</a></strong>
+		<span onclick="document.getElementById('popup').style.visibility = 'visible';"  style="background-color: #0078A8;padding:10px;cursor:pointer;color:white;"><strong>Show the full list</strong></span>
 			<br /> <br />
-			<a target="_blank" href="https://github.com/yoannsculo/embeddedmap">Fork me</a> - <a target="_blank" href="http://www.yoannsculo.fr/a-propos">Contact</a>
+			<a target="_blank" href="#">Contribute</a> - <a target="_blank" href="https://github.com/yoannsculo/embeddedmap">Fork me</a> - <a target="_blank" href="http://www.yoannsculo.fr/a-propos">Contact</a>
 		</p>
 	</div>
 
@@ -27,7 +27,9 @@
 
 	<div id="popup">
 		<a style="float:right;cursor:pointer;" onclick="document.getElementById('popup').style.visibility = 'hidden';">Close</a>
-		<ul>{{list}}</ul>
+		<div id="content">
+			<ul>{{list}}</ul>
+		</div>
 	</div>
 
 </body>
