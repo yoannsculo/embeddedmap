@@ -58,10 +58,10 @@ for entry in data["companies"]:
         if len(description_full) > 0:
             popup_content += ur' - %s' % (description_full)
 
-        result += (u'L.marker([%s,%s]).addTo(map)' % (lat, lon)).encode('utf-8')
+        result += (u'm=L.marker([%s,%s]); markers.push(m); m.addTo(map)' % (lat, lon)).encode('utf-8')
         result += (u'    .bindPopup("%s").openPopup();' % (popup_content)).encode('utf-8')
 
-        list += (u'<li><strong><a target="_blank" href="%s">%s</a></strong> - %s</li>' % (url, name_full, description_full)).encode('utf-8')
+        list += (u'<li><strong><a target="_blank" href="%s">%s</a></strong> - %s <a href="" onclick="return locateCompany(map, %s, %s, %d);"><strong>Locate</strong></a></li>' % (url, name_full, description_full, lat, lon, entries)).encode('utf-8')
         entries += 1
 
 map_content = re.sub('{{content}}', result, template_js)

@@ -1,4 +1,14 @@
+function locateCompany(map, lat, lon, marker_id)
+{
+    document.getElementById('popup').style.visibility = 'hidden';
+    map.setView([lat, lon], 15, {animation: false});
+    markers[marker_id].openPopup();
+
+    return false;
+}
+
 var map = L.map('map').setView([48.8595, 2.3548], 6);
+var markers = [];
 
 L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
 	maxZoom: 18,
