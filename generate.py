@@ -16,6 +16,11 @@ fp_index = open('index.html', 'w+')
 template_js = fp_template_js.read()
 template_index = fp_template_index.read()
 
+postal_fr_re = re.compile(r".*([0-9]{5}.*)")
+postal_be_re = re.compile(r".*(B-[0-9]{4}.*)")
+
+postal_res = [postal_fr_re, postal_be_re]
+
 with open('france.json') as data_file:
     data = json.load(data_file)
 
@@ -41,6 +46,16 @@ for entry in data["companies"]:
         if len(location['gps_coordinates']) == 0:
             continue
 
+        short_postal_address = full_postal_address = location['postal_address']
+        if len(full_postal_address) == 0:
+            short_postal_address = full_postal_address = "Postal address not available"
+        else:
+            for r in postal_res:
+                postal_re_result = r.match(full_postal_address)
+                if not postal_re_result is None:
+                    short_postal_address = postal_re_result.group(1)
+                    break
+
         lat = location['gps_coordinates'].split('/')[0]
         lon = location['gps_coordinates'].split('/')[1]
 
@@ -50,7 +65,7 @@ for entry in data["companies"]:
             if len(location['name']) != 0:
                 name_full = ur'%s' %(location['name'])
 
-        popup_content = ur'<b><a target=\\"_blank\\" href=\\"%s\\">%s</a></b>' % (url, name_full)
+        popup_content = ur'<b><a target=\\"_blank\\" href=\\"%s\\" title=\\"%s\\">%s</a></b>' % (url, full_postal_address, name_full)
 
         if 'description' in location:
             description_full = location['description']
@@ -61,7 +76,7 @@ for entry in data["companies"]:
         result += (u'm=L.marker([%s,%s]); markers.push(m); m.addTo(map)' % (lat, lon)).encode('utf-8')
         result += (u'    .bindPopup("%s").openPopup();' % (popup_content)).encode('utf-8')
 
-        list += (u'<li><strong><a target="_blank" href="%s">%s</a></strong> - %s <a href="" onclick="return locateCompany(map, %s, %s, %d);"><strong>Locate</strong></a></li>' % (url, name_full, description_full, lat, lon, entries)).encode('utf-8')
+        list += (u'<li><strong><a target="_blank" href="%s" title="%s">%s</a></strong> - %s <a href="" onclick="return locateCompany(map, %s, %s, %d);"><strong>Locate</strong></a></li>' % (url, short_postal_address, name_full, description_full, lat, lon, entries)).encode('utf-8')
         entries += 1
 
 map_content = re.sub('{{content}}', result, template_js)
