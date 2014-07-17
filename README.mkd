@@ -1,0 +1,21 @@
+embeddedmap
+===========
+
+To generate the map, put .json files from here
+
+	https://github.com/yoannsculo/emploi/tree/master/societes
+
+and run the following command
+
+	python generate.py france.json belgium.json
+
+if you want to process french and belgian companies.
+
+###TODO
+
+- automatic json download
+- add company categories and filtering
+- add business sectors and filtering
+- add embedded system events
+- add more details on companies
+
