@@ -43,7 +43,10 @@ for f in files:
     with open(f) as data_file:
         data = json.load(data_file)
 
-    print "==> Parse %s" % f
+    country_name = data["country"]["name"]
+    country_code = data["country"]["iso"]
+
+    print "==> Parsing %s (%s) %s" % (country_name, country_code, f)
 
     for entry in data["companies"]:
         name = ""
@@ -93,7 +96,7 @@ for f in files:
             result += (u'm=L.marker([%s,%s]); markers.push(m); m.addTo(map)' % (lat, lon)).encode('utf-8')
             result += (u'    .bindPopup("%s").openPopup();' % (popup_content)).encode('utf-8')
 
-            list += (u'<li><strong><a target="_blank" href="%s" title="%s">%s</a></strong> - %s <a href="" onclick="return locateCompany(map, %s, %s, %d);"><strong>Locate</strong></a></li>' % (url, short_postal_address, name_full, description_full, lat, lon, entries)).encode('utf-8')
+            list += (u'<li class="%s"><strong><a target="_blank" href="%s" title="%s">%s</a></strong> - %s <a href="" onclick="return locateCompany(map, %s, %s, %d);"><strong>Locate</strong></a></li>' % (country_code, url, short_postal_address, name_full, description_full, lat, lon, entries)).encode('utf-8')
             entries += 1
 
 print "Write content to index.html"
