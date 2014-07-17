@@ -1,6 +1,10 @@
 embeddedmap
 ===========
 
+![EmbeddedMap Screenshot](https://raw.github.com/yoannsculo/embeddedmap/master/embeddedmap.png)
+
+Generated map can be found here : http://embeddedmap.sculo.fr
+
 To generate the map, put .json files from here
 
 	https://github.com/yoannsculo/emploi/tree/master/societes
