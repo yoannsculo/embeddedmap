@@ -18,7 +18,7 @@ template_js = fp_template_js.read()
 template_index = fp_template_index.read()
 
 postal_fr_re = re.compile(r".*([0-9]{5}.*)")
-postal_be_re = re.compile(r".*(B-[0-9]{4}.*)")
+postal_be_re = re.compile(r".*([B-]?[0-9]{4}.*)")
 
 postal_res = [postal_fr_re, postal_be_re]
 
@@ -48,11 +48,7 @@ for f in files:
 
     print "==> Parsing %s (%s) %s" % (country_name, country_code, f)
 
-    if "country" in data:
-        country = data["country"]
-    else:
-        country = ""
-    list += (u"<strong>%s</strong><br/>" % (country)).encode('utf-8')
+    list += (u"<strong>%s</strong><br/>" % (country_name)).encode('utf-8')
 
     for entry in data["companies"]:
         name = ""
