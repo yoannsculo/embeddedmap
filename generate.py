@@ -95,8 +95,8 @@ for f in files:
             if len(description_full) > 0:
                 popup_content += ur' - %s' % (description_full)
 
-            result += (u'm=L.marker([%s,%s]); markers.push(m); m.addTo(map)' % (lat, lon)).encode('utf-8')
-            result += (u'    .bindPopup("%s").openPopup();' % (popup_content)).encode('utf-8')
+            result += (u'm=L.marker([%s,%s]); markers.push(m); m.addTo(map); m.on(\'click\', function(e) {cur_marker=this;})' % (lat, lon)).encode('utf-8')
+            result += (u'    .bindPopup("%s");' % (popup_content)).encode('utf-8')
 
             list += (u'<li class="%s"><strong><a target="_blank" href="%s" title="%s">%s</a></strong> - %s <a href="" onclick="return locateCompany(map, %s, %s, %d);"><strong>Locate</strong></a></li>' % (country_code, url, short_postal_address, name_full, description_full, lat, lon, entries)).encode('utf-8')
             entries += 1
