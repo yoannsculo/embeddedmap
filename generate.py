@@ -45,6 +45,12 @@ for f in files:
 
     print "==> Parse %s" % f
 
+    if "country" in data:
+        country = data["country"]
+    else:
+        country = ""
+    list += (u"<strong>%s</strong><br/>" % (country)).encode('utf-8')
+
     for entry in data["companies"]:
         name = ""
         url = ""
