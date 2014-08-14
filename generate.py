@@ -24,7 +24,8 @@ postal_res = [postal_fr_re, postal_be_re]
 
 result = u"".encode('utf-8')
 list = u"".encode('utf-8')
-entries = 0
+companies_nb=0
+locations_nb=0
 
 DEFAULT_FILE='france.json'
 
@@ -64,6 +65,8 @@ for f in files:
         if 'locations' not in entry:
             continue
 
+        locations = 0
+
         for location in entry['locations']:
             if len(location['gps_coordinates']) == 0:
                 continue
@@ -77,6 +80,8 @@ for f in files:
                     if not postal_re_result is None:
                         short_postal_address = postal_re_result.group(1)
                         break
+
+            locations += 1
 
             lat = location['gps_coordinates'].split('/')[0]
             lon = location['gps_coordinates'].split('/')[1]
@@ -98,14 +103,18 @@ for f in files:
             result += (u'm=L.marker([%s,%s]); markers.push(m); m.addTo(map); m.on(\'click\', function(e) {cur_marker=this;})' % (lat, lon)).encode('utf-8')
             result += (u'    .bindPopup("%s");' % (popup_content)).encode('utf-8')
 
-            list += (u'<li class="%s"><strong><a target="_blank" href="%s" title="%s">%s</a></strong> - %s <a href="" onclick="return locateCompany(map, %s, %s, %d);"><strong>Locate</strong></a></li>' % (country_code, url, short_postal_address, name_full, description_full, lat, lon, entries)).encode('utf-8')
-            entries += 1
+            list += (u'<li class="%s"><strong><a target="_blank" href="%s" title="%s">%s</a></strong> - %s <a href="" onclick="return locateCompany(map, %s, %s, %d);"><strong>Locate</strong></a></li>' % (country_code, url, short_postal_address, name_full, description_full, lat, lon, locations_nb)).encode('utf-8')
+
+        if locations > 0:
+            locations_nb += locations
+            companies_nb += 1
 
 print "Write content to index.html"
 
 map_content = re.sub('{{content}}', result, template_js)
 index_content = re.sub('{{list}}', list, template_index)
-index_content = re.sub('{{entries}}', str(entries), index_content)
+index_content = re.sub('{{companies_nb}}', str(companies_nb), index_content)
+index_content = re.sub('{{locations_nb}}', str(locations_nb), index_content)
 fp_map.write(map_content)
 fp_index.write(index_content)
 
