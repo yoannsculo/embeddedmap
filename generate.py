@@ -67,6 +67,14 @@ for f in files:
 
         locations = 0
 
+        list += (u'<li class="%s"><strong><a target="_blank" href="%s">%s</a></strong>' % (country_code, url, name)).encode('utf-8')
+        if 'description' in entry:
+            list += (u' - %s</li>' % (description_full)).encode('utf-8')
+        else:
+            list += u'</li>'.encode('utf-8')
+
+        list += ur'<ul>'.encode('utf-8')
+
         for location in entry['locations']:
             if len(location['gps_coordinates']) == 0:
                 continue
@@ -104,6 +112,8 @@ for f in files:
             result += (u'    .bindPopup("%s");' % (popup_content)).encode('utf-8')
 
             list += (u'<li class="%s"><strong><a target="_blank" href="%s" title="%s">%s</a></strong> - %s <a href="" onclick="return locateCompany(map, %s, %s, %d);"><strong>Locate</strong></a></li>' % (country_code, url, short_postal_address, name_full, description_full, lat, lon, locations_nb)).encode('utf-8')
+
+        list += ur'</ul>'.encode('utf-8')
 
         if locations > 0:
             locations_nb += locations
