@@ -91,8 +91,8 @@ for f in files:
 
             locations += 1
 
-            lat = location['gps_coordinates'].split('/')[0]
-            lon = location['gps_coordinates'].split('/')[1]
+            lat= re.split('/|,',location['gps_coordinates'])[0]
+            lon= re.split('/|,',location['gps_coordinates'])[1]
 
             name_full = name
 
